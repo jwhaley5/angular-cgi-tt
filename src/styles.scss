@@ -1,1 +1,98 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  /* Light Theme */
+  --bg-color: #e5ffd8; /* Cream color */
+  --secondary-bg-color: #cbeff9; /* Cream color */
+  --text-color: #333; /* Dark text */
+  --primary-color: #004c82; /* Dark purple */
+  --secondary-color: rgba(255, 255, 255, 0.3); /* Grey for secondary elements */
+
+  /* Spacing */
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 32px;
+
+  /* Typography */
+  --font-size-small: 14px;
+  --font-size-base: 16px;
+  --font-size-large: 20px;
+  font-family: monospace;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg-color: #00122b; /* Dark grey with a hint of purple */
+  --secondary-bg-color: #002c3d; /* Cream color */
+  --secondary-color: rgba(0, 0, 0, 0.3); /* Grey for secondary elements */
+  --text-color: #e0e0e0; /* Light text for dark theme */
+  --primary-color: #70a7db; /* Lighter purple to complement the dark background */
+}
+
+/* General Styles */
+body {
+  font-family: monospace;
+  background: linear-gradient(var(--bg-color), var(--secondary-bg-color));
+  color: var(--text-color);
+  font-size: var(--font-size-base);
+  margin: 0;
+  padding: var(--spacing-large);
+  transition: background-color 0.3s, color 0.3s; /* Smooth theme transition */
+  min-height: calc(100vh - 64px);
+}
+
+/* Buttons */
+button {
+  font-family: monospace;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: var(--spacing-small) var(--spacing-medium);
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s; /* Smooth button transition */
+}
+
+a {
+  font-family: monospace;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: var(--spacing-small) var(--spacing-medium);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s; /* Smooth button transition */
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Headings */
+h1,
+h2,
+h3 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-medium);
+}
+
+/* Secondary elements like borders or background areas */
+.secondary {
+  background-color: var(--secondary-color);
+  padding: var(--spacing-medium);
+  border-radius: 4px;
+  color: var(--text-color);
+}
+
+/* Example usage of spacing */
+.section {
+  margin-bottom: var(--spacing-large);
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px; /* Adjust font size for mobile */
+  }
+  button {
+    padding: 6px 12px; /* Adjust padding for buttons */
+  }
+}

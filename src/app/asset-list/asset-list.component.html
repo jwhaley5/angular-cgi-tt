@@ -1,0 +1,27 @@
+<button (click)="addAssetDemo()">Add Asset</button>
+<h1>Assets:</h1>
+<div *ngIf="assets" class="assets-list">
+  <table>
+    <thead>
+      <tr>
+        <th>Asset Tag ID</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Assigned To</th>
+        <th>Date Added</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let asset of assets">
+        <td><a [routerLink]="['/asset', asset.assetTagId]">{{ asset.assetTagId }}</a></td>
+        <td>{{ asset.assetType }}</td>
+        <td>{{ asset.description }}</td>
+        <td><a *ngIf="asset.assignedTo" [routerLink]="['/employee', asset.assignedTo]">{{ asset.assignedTo }}</a></td>
+        <td>{{ asset.dateAdded | date:'short' }}</td>
+        <td>{{ asset.retired ? 'Retired' : 'Active' }}</td>
+      </tr>
+      
+    </tbody>
+  </table>
+</div>

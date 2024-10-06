@@ -1,0 +1,14 @@
+.nav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .nav {
+    position: sticky;
+    border-bottom: 1px solid var(--text-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: var(--spacing-small);
+  }
+}

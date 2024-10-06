@@ -1,0 +1,27 @@
+.assets-list {
+  width: 100%;
+  overflow: auto;
+  tbody {
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+  }
+  thead {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+  }
+  th {
+    text-align: start;
+    padding: var(--spacing-small);
+  }
+  table {
+    width: 100%;
+  }
+  td {
+    padding: var(--spacing-small);
+    padding-top: var(--spacing-medium);
+    padding-bottom: var(--spacing-medium);
+    a {
+      text-decoration: none;
+    }
+  }
+}
