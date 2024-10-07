@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class EmployeeDetailsComponent {
   employee!: string;
-  assets!: AssetType[];
+  assets: AssetType[] = [];
   loading = true;
 
   constructor(
