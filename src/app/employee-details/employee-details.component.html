@@ -1,1 +1,55 @@
-<p>employee-details works!</p>
+<div class="asset-list-container">
+  <h1>{{ employee }}'s Assets</h1>
+  <div *ngIf="loading">...loading</div>
+  <div *ngIf="assets.length > 0 && !loading" class="asset-list">
+    <table>
+      <thead>
+        <tr>
+          <th>Tag #</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Assigned To</th>
+          <th>Date Added</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let asset of assets">
+          <td>
+            <a [routerLink]="['/asset', asset.assetTagId]">{{
+              asset.assetTagId
+            }}</a>
+          </td>
+          <td>{{ asset.assetType }}</td>
+          <td>{{ asset.description }}</td>
+          <td>
+            <a
+              *ngIf="asset.assignedTo"
+              [routerLink]="['/employee', asset.assignedTo]"
+              >{{ asset.assignedTo }}</a
+            >
+          </td>
+          <td>{{ asset.dateAdded | date : "short" }}</td>
+          <td>
+            <div
+              style="
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+                justify-content: space-between;
+              "
+            >
+              {{ asset.retired ? "Retired" : "Active" }}
+              <button
+                *ngIf="asset.assetTagId && !asset.retired"
+                (click)="retireAsset(asset.assetTagId)"
+              >
+                Retire
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+.asset-form-container {
+  display: grid;
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  label {
+    padding-bottom: 0.5rem;
+  }
+}
+
+.submit-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2rem;
+  button {
+    padding: 2rem 4rem;
+  }
+  button:disabled {
+    background-color: var(--secondary-bg-color);
+  }
+}
+
+.retirement-control {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 0;
+}

@@ -1,1 +1,12 @@
-<p>asset-details works!</p>
+<h2>Asset Details</h2>
+
+<div *ngIf="asset">
+  <app-asset [asset]="asset"></app-asset>
+</div>
+
+<div *ngIf="loading">loading...</div>
+
+<div *ngIf="!asset && !loading">
+  <h2>Asset Not Found</h2>
+  <p>The asset with ID {{ assetTagId }} could not be found.</p>
+</div>

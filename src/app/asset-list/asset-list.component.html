@@ -1,27 +1,131 @@
-<button (click)="addAssetDemo()">Add Asset</button>
-<h1>Assets:</h1>
-<div *ngIf="assets" class="assets-list">
-  <table>
-    <thead>
-      <tr>
-        <th>Asset Tag ID</th>
-        <th>Type</th>
-        <th>Description</th>
-        <th>Assigned To</th>
-        <th>Date Added</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let asset of assets">
-        <td><a [routerLink]="['/asset', asset.assetTagId]">{{ asset.assetTagId }}</a></td>
-        <td>{{ asset.assetType }}</td>
-        <td>{{ asset.description }}</td>
-        <td><a *ngIf="asset.assignedTo" [routerLink]="['/employee', asset.assignedTo]">{{ asset.assignedTo }}</a></td>
-        <td>{{ asset.dateAdded | date:'short' }}</td>
-        <td>{{ asset.retired ? 'Retired' : 'Active' }}</td>
-      </tr>
-      
-    </tbody>
-  </table>
+<div class="asset-list-container">
+  <!-- Controls for filtering -->
+  <div *ngIf="assets.length > 0" class="filter-controls">
+    <div class="filter-control">
+      <label> Tag Id </label>
+      <input
+        type="text"
+        placeholder="Tag ID"
+        [(ngModel)]="filter.assetTagId"
+        (input)="applyFilter()"
+      />
+    </div>
+    <div class="filter-control">
+      <label>Asset Type </label>
+      <select [(ngModel)]="filter.assetType" (change)="applyFilter()">
+        <option value="">All</option>
+        <option value="Desktop">Desktop</option>
+        <option value="Laptop">Laptop</option>
+        <option value="Display">Display</option>
+        <option value="Phone">Phone</option>
+        <option value="External Hard Drive">External Hard Drive</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="filter-control">
+      <label> Date Added </label>
+      <input
+        type="date"
+        placeholder="Date Added"
+        [(ngModel)]="filter.dateAdded"
+        (input)="applyFilter()"
+      />
+    </div>
+    <div class="filter-control">
+      <label> Date Retired </label>
+      <input
+        type="date"
+        placeholder="Date Retired"
+        [(ngModel)]="filter.dateRetired"
+        (input)="applyFilter()"
+      />
+    </div>
+    <div class="filter-control">
+      <label> Description </label>
+      <input
+        type="text"
+        placeholder="Description"
+        [(ngModel)]="filter.description"
+        (input)="applyFilter()"
+      />
+    </div>
+    <div class="filter-control">
+      <label> Assigned To </label>
+      <input
+        type="text"
+        placeholder="Assigned To"
+        [(ngModel)]="filter.assignedTo"
+        (input)="applyFilter()"
+      />
+    </div>
+    <div class="filter-control">
+      <label> Status </label>
+      <select [(ngModel)]="filter.retired" (change)="applyFilter()">
+        <option value="">All</option>
+        <option value="false">Active</option>
+        <option value="true">Retired</option>
+      </select>
+    </div>
+  </div>
+  <div class="add-asset-container">
+    <button [routerLink]="['/newAsset']">Add Asset</button>
+  </div>
+
+  <!-- Asset list -->
+  <div *ngIf="filteredAssets.length > 0 && !loading" class="asset-list">
+    <table>
+      <thead>
+        <tr>
+          <th>Tag #</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Assigned To</th>
+          <th>Date Added</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let asset of filteredAssets">
+          <td>
+            <a [routerLink]="['/asset', asset.assetTagId]">{{
+              asset.assetTagId
+            }}</a>
+          </td>
+          <td>{{ asset.assetType }}</td>
+          <td>{{ asset.description }}</td>
+          <td>
+            <a
+              *ngIf="asset.assignedTo"
+              [routerLink]="['/employee', asset.assignedTo]"
+              >{{ asset.assignedTo }}</a
+            >
+          </td>
+          <td>{{ asset.dateAdded | date : "short" }}</td>
+          <td>
+            <div
+              style="
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+                justify-content: space-between;
+              "
+            >
+              {{ asset.retired ? "Retired" : "Active" }}
+              <button
+                *ngIf="asset.assetTagId && !asset.retired"
+                (click)="retireAsset(asset.assetTagId)"
+              >
+                Retire
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="filteredAssets.length === 0 && assets.length > 0 && !loading">
+    <p>No assets found for the given filters.</p>
+  </div>
+  <div *ngIf="loading">...loading</div>
 </div>

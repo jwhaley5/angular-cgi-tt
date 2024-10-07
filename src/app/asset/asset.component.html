@@ -1,0 +1,80 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div *ngIf="!asset?.assetTagId">
+    <h1>Create Asset</h1>
+  </div>
+  <div class="asset-form-container">
+    <div *ngIf="asset?.assetTagId" class="form-group">
+      <label for="assetTagId">Asset Tag ID:</label>
+      <p class="form-control">{{ form.get("assetTagId")?.value }}</p>
+    </div>
+
+    <div class="form-group">
+      <label for="assetType">Asset Type:</label>
+      <select
+        class="form-control"
+        id="assetType"
+        formControlName="assetType"
+        required
+      >
+        <option value="">Select Asset Type</option>
+        <option value="Desktop">Desktop</option>
+        <option value="Laptop">Laptop</option>
+        <option value="Display">Display</option>
+        <option value="Phone">Phone</option>
+        <option value="External Hard Drive">External Hard Drive</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea
+        class="form-control"
+        id="description"
+        formControlName="description"
+        required
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="assignedTo">Assigned To:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="assignedTo"
+        formControlName="assignedTo"
+      />
+    </div>
+
+    <div *ngIf="asset?.assetTagId" class="form-group">
+      <label for="dateAdded">Date Added:</label>
+      <input
+        type="date"
+        class="form-control"
+        id="dateAdded"
+        formControlName="dateAdded"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="retired">Retired:</label>
+      <input type="checkbox" id="retired" formControlName="retired" />
+    </div>
+
+    <div *ngIf="asset?.assetTagId" class="form-group">
+      <label for="dateRetired">Date Retired:</label>
+      <input
+        type="date"
+        class="form-control"
+        id="dateRetired"
+        formControlName="dateRetired"
+      />
+    </div>
+  </div>
+  <div class="submit-buttons">
+    <button [disabled]="loading" type="submit" class="btn btn-primary">
+      {{ loading ? "Saving..." : "Save" }}
+    </button>
+  </div>
+</form>

@@ -1,7 +1,7 @@
 :root {
   /* Light Theme */
-  --bg-color: #e5ffd8; /* Cream color */
-  --secondary-bg-color: #cbeff9; /* Cream color */
+  --bg-color: #bef4fd; /* Cream color */
+  --secondary-bg-color: #c2b280; /* Cream color */
   --text-color: #333; /* Dark text */
   --primary-color: #004c82; /* Dark purple */
   --secondary-color: rgba(255, 255, 255, 0.3); /* Grey for secondary elements */
@@ -20,8 +20,8 @@
 
 /* Dark Theme */
 [data-theme="dark"] {
-  --bg-color: #00122b; /* Dark grey with a hint of purple */
-  --secondary-bg-color: #002c3d; /* Cream color */
+  --bg-color: #001129; /* Dark grey with a hint of purple */
+  --secondary-bg-color: #003b52; /* Cream color */
   --secondary-color: rgba(0, 0, 0, 0.3); /* Grey for secondary elements */
   --text-color: #e0e0e0; /* Light text for dark theme */
   --primary-color: #70a7db; /* Lighter purple to complement the dark background */
@@ -30,13 +30,23 @@
 /* General Styles */
 body {
   font-family: monospace;
-  background: linear-gradient(var(--bg-color), var(--secondary-bg-color));
   color: var(--text-color);
   font-size: var(--font-size-base);
   margin: 0;
-  padding: var(--spacing-large);
+  background: linear-gradient(var(--bg-color) 80%, var(--secondary-bg-color));
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-blend-mode: hue;
   transition: background-color 0.3s, color 0.3s; /* Smooth theme transition */
-  min-height: calc(100vh - 64px);
+  min-height: 100vh;
+}
+
+.content {
+  padding: var(--spacing-small);
+  @media (min-width: 768px) {
+    padding: var(--spacing-medium);
+  }
 }
 
 /* Buttons */
@@ -52,19 +62,68 @@ button {
   transition: background-color 0.3s; /* Smooth button transition */
 }
 
-a {
+input,
+select {
   font-family: monospace;
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: var(--spacing-small) var(--spacing-medium);
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s; /* Smooth button transition */
+  font-size: 16px;
+  background-color: var(--bg-color);
+  border: 1px solid var(--primary-color);
+  color: var(--text-color);
+  padding: var(--spacing-medium);
+  border-radius: var(--spacing-small);
 }
 
+input[type="checkbox"] {
+  padding: none;
+  margin: 0;
+  justify-self: flex-start;
+  width: min-content;
+  width: 2rem;
+  height: 2rem;
+  accent-color: var(--primary-color);
+}
+
+textarea {
+  font-family: monospace;
+  font-size: 16px;
+  background-color: var(--bg-color);
+  border: 1px solid var(--primary-color);
+  color: var(--text-color);
+  padding: var(--spacing-medium);
+  border-radius: var(--spacing-small);
+  resize: vertical;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background-color: white;
+  [data-theme="dark"] {
+    background-color: black;
+  }
+}
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+select:disabled {
+  color: var(--text-color);
+  opacity: 1;
+}
+
+input::placeholder,
+select::placeholder {
+  color: var(--text-color);
+}
+
+a {
+  font-family: monospace;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+a:hover,
 button:hover {
-  opacity: 0.9;
+  opacity: 0.6;
 }
 
 /* Headings */

@@ -1,14 +1,28 @@
 .nav {
   display: none;
-}
-
-@media (min-width: 768px) {
-  .nav {
+  @media (min-width: 768px) {
+    top: 0;
     position: sticky;
-    border-bottom: 1px solid var(--text-color);
+    overflow: hidden;
+    border-bottom: 3px solid var(--primary-color);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: var(--spacing-small);
+    padding: var(--spacing-medium);
+  }
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px solid var(--primary-color);
+  padding: var(--spacing-medium);
+  @media (min-width: 768px) {
+    display: none;
+  }
+  button {
+    height: 3rem;
   }
 }

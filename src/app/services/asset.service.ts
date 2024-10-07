@@ -16,7 +16,25 @@ export class AssetService {
     return this.http.post<Asset>(`${environment.api_url}/assets`, asset);
   }
 
+  public updateAsset(asset: Asset): Observable<Asset> {
+    console.log(`${environment.api_url}/assets/${asset.assetTagId}`);
+    return this.http.put<Asset>(
+      `${environment.api_url}/assets/${asset.assetTagId}`,
+      asset
+    );
+  }
+
   public getAssets(): Observable<Asset[]> {
     return this.http.get<Asset[]>(`${environment.api_url}/assets`);
+  }
+
+  public retireAsset(id: number) {
+    return this.http.delete(`${environment.api_url}/assets/${id}/retire`);
+  }
+
+  public unretireAsset(asset: Asset): Observable<Asset> {
+    return this.http.delete(
+      `${environment.api_url}/assets/${asset.assetTagId}/unretire`
+    );
   }
 }

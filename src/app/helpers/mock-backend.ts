@@ -31,9 +31,11 @@ function dateTimeReviver(key: string, value: any) {
   } else return value;
 }
 
+const localStorageAssets = localStorage.getItem('assets');
 // array in local storage for assets
-let assets: AssetType[] =
-  JSON.parse(localStorage.getItem('assets') ?? '', dateTimeReviver) || [];
+let assets: AssetType[] = localStorageAssets
+  ? JSON.parse(localStorageAssets, dateTimeReviver)
+  : [];
 let errors: any[] = [];
 
 // This is a http intercepter that fakes an Assets RESTful API. It intercepts http requests
@@ -47,7 +49,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const { url, method, headers, body, params } = request;
-
+    console.log(url, method);
     // wrap in delayed observable to simulate server api call
     return of(null)
       .pipe(mergeMap(handleRoute))
@@ -69,7 +71,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
             return updateAsset(parseBody());
           case url.match(/\/assets\/\d+\/retire$/) && method === 'DELETE':
             return retireAsset(true);
-          case url.match(/\/assets\/\d+\/retire$/) && method === 'PUT':
+          case url.match(/\/assets\/\d+\/unretire$/) && method === 'DELETE':
             return retireAsset(false);
           case url.endsWith('/errors') && method === 'GET':
             return getErrors();
@@ -160,6 +162,7 @@ export class MockBackendInterceptor implements HttpInterceptor {
 
     function retireAsset(retire: boolean) {
       let asset = assets.find((x) => x.assetTagId == idFromUrl());
+      console.log(asset);
       if (asset == undefined) {
         return notFound(`Asset does not exist!`);
       }
