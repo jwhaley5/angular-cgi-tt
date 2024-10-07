@@ -9,6 +9,9 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    .error {
+      color: red;
+    }
   }
   label {
     padding-bottom: 0.5rem;

@@ -21,6 +21,10 @@ export class AssetComponent implements OnInit {
   form!: FormGroup;
   @Input() asset?: AssetType; // Make `asset` an optional input property
   loading = false;
+
+  descriptionError = '';
+  assetTypeError = '';
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -55,7 +59,7 @@ export class AssetComponent implements OnInit {
         assetType: ['', Validators.required],
         description: ['', Validators.required],
         assignedTo: [''],
-        dateAdded: ['', Validators.required],
+        dateAdded: [''],
         retired: [false],
         dateRetired: [''],
       });
@@ -63,6 +67,10 @@ export class AssetComponent implements OnInit {
   }
 
   public save(): void {
+    if (this.form.invalid) {
+      return;
+    }
+
     this.loading = true;
     const formSubmission = this.form.value;
     let assetSubmission: AssetType = { ...this.asset, ...formSubmission };

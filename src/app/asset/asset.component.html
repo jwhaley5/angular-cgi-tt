@@ -24,6 +24,9 @@
         <option value="External Hard Drive">External Hard Drive</option>
         <option value="Other">Other</option>
       </select>
+      <p class="error" *ngIf="this.form.controls['assetType'].errors">
+        Asset Type is Required
+      </p>
     </div>
 
     <div class="form-group">
@@ -34,6 +37,9 @@
         formControlName="description"
         required
       ></textarea>
+      <p class="error" *ngIf="this.form.controls['description'].errors">
+        Description is Required
+      </p>
     </div>
 
     <div class="form-group">
